@@ -13,7 +13,7 @@ function Book(title, author, pages, read) {
 
 addBookButton.addEventListener("click", createBookInputField);
 
-function createBookInputField() {
+function createBookInputField(event) {
   if (counter == 0) {
     const form = document.createElement("form");
     form.className = "add-book-form";
@@ -71,12 +71,29 @@ function createBookInputField() {
     screenContainer.appendChild(addBookContainer);
     addBookContainer.appendChild(form);
     form.appendChild(submitButton);
+    event.preventDefault();
+    submitButton.addEventListener("click", function () {
+      const titleInput = document.querySelector(".title-input");
+      const authorInput = document.querySelector(".author-input");
+      const pagesInput = document.querySelector(".pages-input");
+      const readInput = document.querySelector(".read-input");
+
+      const newBook = new Book(
+        titleInput.value,
+        authorInput.value,
+        pagesInput.value,
+        readInput.value
+      );
+      myLibrary.push(newBook);
+      console.log(myLibrary);
+      counter = 0;
+
+      addBookContainer.remove();
+    });
   } else {
     return null;
   }
   counter += 1;
-  submitButton.addEventListener("click", function () {
-    addBookContainer.remove();
-  });
 }
+
 function addBookToLibrary() {}
