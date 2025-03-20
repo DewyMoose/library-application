@@ -2,4 +2,88 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto Slab";
+}
+:root {
+  --dark-blue: #12263a;
+  --light-blue: #06bcc1;
+  --grey: #c5d8d1;
+  --white: #f4edea;
+  --sand-color: #f4d1ae;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  background-color: var(--dark-blue);
+  color: var(--white);
+}
+
+nav > div > h1 {
+  font-size: 3rem;
+  margin-left: 40px;
+}
+
+nav > div > button {
+  background-color: var(--white);
+  color: var(--dark-blue);
+  padding: 10px 40px;
+  border-radius: 20px;
+  margin-right: 40px;
+}
+
+.screen-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.add-book-container {
+  height: 400px;
+  width: 400px;
+  background-color: var(--sand-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: 1px solid black;
+}
+.add-book-form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  align-items: center;
+  gap: 10px;
+  font-weight: 300;
+  margin-top: 20px;
+}
+.add-book-form > button {
+  padding: 10px 40px;
+  border-radius: 20px;
+  border: transparent;
+  margin-top: 30px;
+}
+
+.add-book-form > .title-input,
+.author-input,
+.pages-input {
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  outline: 1px solid black;
+  background-color: var(--white);
+  border: transparent;
+}
+.read-input {
+  outline: none;
+  height: 20px;
+  width: 20px;
 }
