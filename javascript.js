@@ -14,7 +14,6 @@ function Book(title, author, pages, read, id, created) {
 }
 function addBookToUi() {
   for (let i = 0; i < myLibrary.length; i++) {
-    console.log(myLibrary[i].created);
     if (myLibrary[i].created == 0) {
       const newBookContainer = document.createElement("div");
       newBookContainer.className = "book-container";
@@ -33,7 +32,11 @@ function addBookToUi() {
       const read = document.createElement("h2");
       read.textContent = "Read:";
       const readStatus = document.createElement("p");
-      readStatus.textContent = myLibrary[i].read;
+      if (myLibrary[i].read == true) {
+        readStatus.textContent = "Read";
+      } else if (myLibrary[i].read == false) {
+        readStatus.textContent = "Not Read";
+      }
       newBookContainer.append(
         title,
         titleName,
@@ -49,15 +52,31 @@ function addBookToUi() {
       buttonDiv.className = "button-div";
       const deleteButton = document.createElement("button");
       deleteButton.className = "delete-button";
+      deleteButton.id = myLibrary[i].id;
       deleteButton.textContent = "Delete";
       const readButton = document.createElement("button");
       readButton.className = "read-button";
       readButton.textContent = "Read";
       newBookContainer.appendChild(buttonDiv);
       buttonDiv.append(deleteButton, readButton);
-      console.log(myLibrary[i]);
       myLibrary[i].created = 1;
       screenContainer.append(newBookContainer);
+
+      deleteButton.onclick = function () {
+        newBookContainer.remove();
+        console.log(myLibrary);
+        myLibrary.splice(i, 1);
+        console.log(myLibrary);
+      };
+      readButton.onclick = function () {
+        if (myLibrary[i].read == true) {
+          myLibrary[i].read = false;
+          readStatus.textContent = "Not Read";
+        } else if (myLibrary[i].read == false) {
+          myLibrary[i].read = true;
+          readStatus.textContent = "Read";
+        }
+      };
     } else {
     }
   }
@@ -67,9 +86,10 @@ addBookButton.addEventListener("click", createBookInputField);
 
 function createBookInputField() {
   if (counter == 0) {
+    screenContainer.style.backgroundColor = "rgb(0, 0, 0, 0.5)";
     const form = document.createElement("form");
     form.className = "add-book-form";
-    const addBookContainer = document.createElement("div");
+    const addBookContainer = document.createElement("dialog");
     addBookContainer.className = "add-book-container";
     let inputDivArray = [
       {
@@ -116,13 +136,20 @@ function createBookInputField() {
       form.append(labelElement, input);
     });
 
-    const submitButton = document.createElement("input");
+    const submitButton = document.createElement("button");
     submitButton.type = "submit";
     submitButton.textContent = "Add Book";
 
+    const closeButton = document.createElement("button");
+    closeButton.type = "button";
+    closeButton.textContent = "Close";
+    closeButton.addEventListener("click", () => addBookContainer.close());
+
     screenContainer.appendChild(addBookContainer);
     addBookContainer.appendChild(form);
-    form.appendChild(submitButton);
+    form.append(submitButton, closeButton);
+
+    addBookContainer.showModal();
     submitButton.addEventListener("click", addBookToArray);
     function addBookToArray(event) {
       event.preventDefault();
@@ -140,9 +167,11 @@ function createBookInputField() {
         0
       );
       myLibrary.push(newBook);
-      console.log(myLibrary);
       counter = 0;
+      addBookContainer.close();
       addBookContainer.remove();
+      screenContainer.style.backgroundColor = "var(--white)";
+
       addBookToUi();
     }
   } else {
