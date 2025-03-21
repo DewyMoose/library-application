@@ -64,9 +64,7 @@ function addBookToUi() {
 
       deleteButton.onclick = function () {
         newBookContainer.remove();
-        console.log(myLibrary);
         myLibrary.splice(i, 1);
-        console.log(myLibrary);
       };
       readButton.onclick = function () {
         if (myLibrary[i].read == true) {
