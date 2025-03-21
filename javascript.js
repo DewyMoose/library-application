@@ -180,7 +180,6 @@ function createBookInputField() {
       addBookContainer.remove();
       screenContainer.style.backgroundColor = "var(--white)";
       counter = 0;
-      console.log(myLibrary);
     });
   } else {
     return null;
