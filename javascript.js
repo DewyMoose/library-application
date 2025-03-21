@@ -67,10 +67,10 @@ function addBookToUi() {
         myLibrary.splice(i, 1);
       };
       readButton.onclick = function () {
-        if (myLibrary[i].read == true) {
+        if (readStatus.textContent == "Read") {
           myLibrary[i].read = false;
           readStatus.textContent = "Not Read";
-        } else if (myLibrary[i].read == false) {
+        } else if (readStatus.textContent == "Not Read") {
           myLibrary[i].read = true;
           readStatus.textContent = "Read";
         }
@@ -94,12 +94,14 @@ function createBookInputField() {
         label: "Title",
         input: document.createElement("input"),
         name: "Title",
+        type: "text",
         className: "title-input",
       },
       {
         label: "Author",
         input: document.createElement("input"),
         name: "Author",
+        type: "text",
         className: "author-input",
       },
       {
@@ -114,6 +116,7 @@ function createBookInputField() {
         input: document.createElement("input"),
         name: "Read",
         type: "checkbox",
+        required: false,
         className: "read-input",
       },
     ];
@@ -133,7 +136,6 @@ function createBookInputField() {
       addBookContainer.appendChild(form);
       form.append(labelElement, input);
     });
-
     const submitButton = document.createElement("button");
     submitButton.type = "submit";
     submitButton.textContent = "Add Book";
@@ -147,7 +149,7 @@ function createBookInputField() {
     form.append(submitButton, closeButton);
 
     addBookContainer.showModal();
-
+    document.querySelector(".read-input").removeAttribute("required");
     form.addEventListener("submit", addBookToArray);
 
     function addBookToArray(event) {
@@ -178,6 +180,7 @@ function createBookInputField() {
       addBookContainer.remove();
       screenContainer.style.backgroundColor = "var(--white)";
       counter = 0;
+      console.log(myLibrary);
     });
   } else {
     return null;
