@@ -141,14 +141,15 @@ function createBookInputField() {
     const closeButton = document.createElement("button");
     closeButton.type = "button";
     closeButton.textContent = "Close";
-    closeButton.addEventListener("click", () => addBookContainer.close());
 
     screenContainer.appendChild(addBookContainer);
     addBookContainer.appendChild(form);
     form.append(submitButton, closeButton);
 
     addBookContainer.showModal();
-    submitButton.addEventListener("click", addBookToArray);
+
+    form.addEventListener("submit", addBookToArray);
+
     function addBookToArray(event) {
       event.preventDefault();
       const titleInput = document.querySelector(".title-input");
@@ -166,12 +167,18 @@ function createBookInputField() {
       );
       myLibrary.push(newBook);
       counter = 0;
+
+      screenContainer.style.backgroundColor = "var(--white)";
+      addBookToUi();
+      addBookContainer.close();
+      addBookContainer.remove();
+    }
+    closeButton.addEventListener("click", function () {
       addBookContainer.close();
       addBookContainer.remove();
       screenContainer.style.backgroundColor = "var(--white)";
-
-      addBookToUi();
-    }
+      counter = 0;
+    });
   } else {
     return null;
   }
